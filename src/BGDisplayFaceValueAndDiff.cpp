@@ -32,38 +32,24 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
 
     DisplayManager.printText(33, 6, diff.c_str(), TEXT_ALIGNMENT::RIGHT, 2);
 
-    // Clear the area where the timer blocks are drawn
-    int startX = 0;
-    int endX = MATRIX_WIDTH - 1;
-    for (int x = startX; x <= endX; ++x) {
-        DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_BLACK);
+// Clear the area where the timer blocks are drawn
+int startX = 0;
+int endX = MATRIX_WIDTH - 1;
+for (int x = startX; x <= endX; ++x) {
+    DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_BLACK);
 }
 
-    // Draw the 1-minute ticker (centered horizontally)
-    int elapsedMinutes = (ServerManager.getTimezonedTime().tm_sec - lastReading.epoch) / 60;
-    int maxBlocks = 6; // Maximum blocks to display
-    int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
+// Calculate total width of blocks and the starting x position
+int totalWidth = (blockCount * 5); // 4 pixels per block + 1 pixel for spacing
+startX = (MATRIX_WIDTH - totalWidth + 1) / 2; // Reuse startX
 
-    // Calculate total width of blocks and the starting x position
-    int totalWidth = (blockCount * 5); // 4 pixels per block + 1 pixel for spacing
-    int startX = (MATRIX_WIDTH - totalWidth + 1) / 2; // Adjusted for symmetry
-
-    // Draw each block
-    for (int i = 0; i < blockCount; ++i) {
-        int blockStartX = startX + (i * 5); // 4 pixels for block + 1 pixel for spacing
-        for (int x = blockStartX; x < blockStartX + 4; ++x) {
-            DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
-        }
+// Draw each block
+for (int i = 0; i < blockCount; ++i) {
+    int blockStartX = startX + (i * 5); // 4 pixels for block + 1 pixel for spacing
+    for (int x = blockStartX; x < blockStartX + 4; ++x) {
+        DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
     }
-
-    // Draw each block
-    for (int i = 0; i < blockCount; ++i) {
-        int blockStartX = startX + (i * 5); // 4 pixels for block + 1 pixel for spacing
-        for (int x = blockStartX; x < blockStartX + 4; ++x) {
-            // Draw each block at the bottom row (y-coordinate is MATRIX_HEIGHT - 1)
-            DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
-        }
-    }
+}
 }
 
 String BGDisplayFaceValueAndDiff::getDiff(const std::list<GlucoseReading> &readings) const {
