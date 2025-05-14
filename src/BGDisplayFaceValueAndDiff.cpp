@@ -1,6 +1,8 @@
 #include "BGDisplayFaceValueAndDiff.h"
 #include "BGDisplayManager.h"
 #include "globals.h"
+#include "DisplayManager.h"
+
 
 void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &readings, bool dataIsOld) const {
 
