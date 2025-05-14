@@ -47,7 +47,7 @@ int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
 
 // Calculate total width of blocks and the starting x position
 int totalWidth = (blockCount * 5); // 4 pixels per block + 1 pixel for spacing
-startX = (MATRIX_WIDTH - totalWidth + 1) / 2; // Adjusted for symmetry
+startX = 0; // Align to the left
 
 // Draw each block
 for (int i = 0; i < blockCount; ++i) {
