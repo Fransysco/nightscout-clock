@@ -31,6 +31,11 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
 
     DisplayManager.printText(33, 6, diff.c_str(), TEXT_ALIGNMENT::RIGHT, 2);
 
+    // Clear the area where the timer blocks are drawn
+    for (int x = 0; x < MATRIX_WIDTH; ++x) {
+        DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_BLACK);
+    }
+
     // Draw the 1-minute ticker (centered horizontally)
     int elapsedMinutes = (ServerManager.getTimezonedTime().tm_sec - lastReading.epoch) / 60;
     int maxBlocks = 6; // Maximum blocks to display
@@ -48,6 +53,7 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
             DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
         }
     }
+}
 
 }
 
