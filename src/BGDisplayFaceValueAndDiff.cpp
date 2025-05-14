@@ -36,12 +36,12 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
 int startX = 0;
 int endX = MATRIX_WIDTH - 1;
 for (int x = startX; x <= endX; ++x) {
-    DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_RED);
+    DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_BLACK);
 }
-    
+    DisplayManager.update();
 
 // Calculate elapsed minutes and block count
-int elapsedMinutes = (ServerManager.getTimezonedTime().tm_sec - lastReading.epoch) / 60;
+int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
 int maxBlocks = 6; // Maximum blocks to display
 int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
 
@@ -56,6 +56,7 @@ for (int i = 0; i < blockCount; ++i) {
         DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
     }
 }
+    DisplayManager.update();
 }
 String BGDisplayFaceValueAndDiff::getDiff(const std::list<GlucoseReading> &readings) const {
     if (readings.size() < 2) {
