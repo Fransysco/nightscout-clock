@@ -56,8 +56,6 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
     }
 }
 
-}
-
 String BGDisplayFaceValueAndDiff::getDiff(const std::list<GlucoseReading> &readings) const {
     if (readings.size() < 2) {
 #ifdef DEBUG_DISPLAY
