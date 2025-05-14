@@ -2,7 +2,8 @@
 #include "BGDisplayManager.h"
 #include "globals.h"
 
-#define MATRIX_HEIGHT 8 
+#define MATRIX_HEIGHT 8
+#define MATRIX_WIDTH 32
 
 
 void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &readings, bool dataIsOld) const {
@@ -53,6 +54,7 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
             DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
         }
     }
+}
 }
 
 }
