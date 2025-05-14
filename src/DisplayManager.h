@@ -5,6 +5,8 @@
 #include <Arduino.h>
 
 // Define the matrix dimensions as global macros
+#define MATRIX_WIDTH 32
+#define MATRIX_HEIGHT 8
 
 class DisplayManager_ {
   private:
