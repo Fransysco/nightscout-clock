@@ -55,7 +55,7 @@ for (int i = 0; i < blockCount; ++i) {
         DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
     }
 }
-
+}
 String BGDisplayFaceValueAndDiff::getDiff(const std::list<GlucoseReading> &readings) const {
     if (readings.size() < 2) {
 #ifdef DEBUG_DISPLAY
