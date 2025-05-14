@@ -9,6 +9,7 @@
 void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &readings, bool dataIsOld) const {
 
     DisplayManager.clearMatrix();
+    DisplayManager.update();  // Apply clearing
 
     auto lastReading = readings.back();
 
@@ -39,7 +40,7 @@ for (int x = startX; x <= endX; ++x) {
     DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_RED);
 }
     
-DisplayManager.update();  // Apply clearing
+
     
 // Calculate elapsed minutes and block count
 int elapsedMinutes = (ServerManager.getTimezonedTime().tm_sec - lastReading.epoch) / 60;
