@@ -72,4 +72,6 @@ extern const String sound_low PROGMEM;
 extern const String sound_high PROGMEM;
 extern const String sound_boot PROGMEM;
 extern int BG_DATA_OLD_OFFSET_MINUTES;
+extern int MATRIX_HEIGHT;
+extern int MATRIX_WIDTH;
 #endif // Globals_H
