@@ -36,7 +36,7 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
 int startX = 0;
 int endX = MATRIX_WIDTH - 1;
 for (int x = startX; x <= endX; ++x) {
-    DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_BLACK);
+    DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_RED);
 }
     
 DisplayManager.update();  // Apply clearing
