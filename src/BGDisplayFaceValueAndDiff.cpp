@@ -39,9 +39,14 @@ for (int x = startX; x <= endX; ++x) {
     DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_BLACK);
 }
 
+// Calculate elapsed minutes and block count
+int elapsedMinutes = (ServerManager.getTimezonedTime().tm_sec - lastReading.epoch) / 60;
+int maxBlocks = 6; // Maximum blocks to display
+int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
+
 // Calculate total width of blocks and the starting x position
 int totalWidth = (blockCount * 5); // 4 pixels per block + 1 pixel for spacing
-startX = (MATRIX_WIDTH - totalWidth + 1) / 2; // Reuse startX
+startX = (MATRIX_WIDTH - totalWidth + 1) / 2; // Adjusted for symmetry
 
 // Draw each block
 for (int i = 0; i < blockCount; ++i) {
@@ -49,7 +54,6 @@ for (int i = 0; i < blockCount; ++i) {
     for (int x = blockStartX; x < blockStartX + 4; ++x) {
         DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
     }
-}
 }
 
 String BGDisplayFaceValueAndDiff::getDiff(const std::list<GlucoseReading> &readings) const {
