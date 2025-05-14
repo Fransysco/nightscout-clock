@@ -1,7 +1,8 @@
 #include "BGDisplayFaceValueAndDiff.h"
 #include "BGDisplayManager.h"
 #include "globals.h"
-#include "DisplayManager.h"
+
+#define MATRIX_HEIGHT 8 
 
 
 void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &readings, bool dataIsOld) const {
