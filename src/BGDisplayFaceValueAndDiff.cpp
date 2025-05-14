@@ -114,3 +114,4 @@ String BGDisplayFaceValueAndDiff::getDiff(const std::list<GlucoseReading> &readi
 #endif
 
     return diffString;
+}
