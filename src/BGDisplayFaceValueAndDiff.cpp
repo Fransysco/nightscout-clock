@@ -27,6 +27,21 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
     }
 
     DisplayManager.printText(33, 6, diff.c_str(), TEXT_ALIGNMENT::RIGHT, 2);
+
+    // Draw the 1-minute ticker
+    int elapsedMinutes = (ServerManager.getTimezonedTime().tm_sec - lastReading.epoch) / 60;
+    int maxBlocks = 32 / 5; // 6 blocks max (4 pixels per block + 1 pixel spacing)
+    int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
+
+    for (int i = 0; i < blockCount; ++i) {
+        // Calculate the starting x-coordinate for each block
+        int startX = i * 5; // 4 pixels for block + 1 pixel for spacing
+        for (int x = startX; x < startX + 4; ++x) {
+            // Draw each block at the bottom row (y-coordinate is MATRIX_HEIGHT - 1)
+            DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
+        }
+    }
+
 }
 
 String BGDisplayFaceValueAndDiff::getDiff(const std::list<GlucoseReading> &readings) const {
