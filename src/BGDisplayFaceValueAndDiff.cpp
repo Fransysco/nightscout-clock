@@ -38,7 +38,9 @@ int endX = MATRIX_WIDTH - 1;
 for (int x = startX; x <= endX; ++x) {
     DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, COLOR_BLACK);
 }
-
+    
+DisplayManager.update();  // Apply clearing
+    
 // Calculate elapsed minutes and block count
 int elapsedMinutes = (ServerManager.getTimezonedTime().tm_sec - lastReading.epoch) / 60;
 int maxBlocks = 6; // Maximum blocks to display
