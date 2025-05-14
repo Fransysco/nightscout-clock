@@ -19,8 +19,6 @@ ClockFont currentFont = AwtrixFont;
 // Initialize the global shared instance
 DisplayManager_ &DisplayManager = DisplayManager.getInstance();
 
-#define MATRIX_WIDTH 32
-#define MATRIX_HEIGHT 8
 bool UPPERCASE_LETTERS = true;
 #define MATRIX_PIN 32
 
