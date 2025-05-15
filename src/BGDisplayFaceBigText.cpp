@@ -13,7 +13,7 @@ void BGDisplayFaceBigText::showReadings(const std::list<GlucoseReading> &reading
 
     auto lastReading = readings.back()
     
-        // Timer block logic
+   // Timer block logic
     int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
     const int maxBlocks = 5; // Maximum number of blocks
     const int blockSpacing = 1; // Space between blocks
@@ -23,7 +23,7 @@ void BGDisplayFaceBigText::showReadings(const std::list<GlucoseReading> &reading
     int blockWidth = (MATRIX_WIDTH - totalSpacing) / maxBlocks; // Maximum block width
 
     int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
-    int startX = 0; // Always start from the left edge
+    int startX = 1;
 
     // Draw each block
     for (int i = 0; i < blockCount; ++i) {
