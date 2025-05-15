@@ -22,6 +22,8 @@ void BGDisplayFaceGraphAndBG::showReadings(const std::list<GlucoseReading> &read
     showReading(readings.back(), 31, 6, TEXT_ALIGNMENT::RIGHT, FONT_TYPE::MEDIUM, dataIsOld);
     showTrendVerticalLine(31, readings.back().trend);
 
+    auto lastReading = readings.back(); // Declare and initialize lastReading
+
     // Declare and calculate
     int maxBlocks = 5; // Limit to maximum of 5 blocks
     int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
