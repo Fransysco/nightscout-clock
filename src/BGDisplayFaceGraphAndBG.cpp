@@ -28,7 +28,7 @@ void BGDisplayFaceGraphAndBG::showReadings(const std::list<GlucoseReading> &read
     int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
 
     // Call the shared timer block function
-    BGDisplayManager::drawTimerBlocks(elapsedMinutes, 5, dataIsOld);
+    BGDisplayManager_::drawTimerBlocks(elapsedMinutes, 5, dataIsOld);
 
     DisplayManager.update();
 }
