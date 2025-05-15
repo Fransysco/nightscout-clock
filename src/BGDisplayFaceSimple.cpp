@@ -6,6 +6,8 @@ void BGDisplayFaceSimple::showReadings(const std::list<GlucoseReading> &readings
 
     DisplayManager.clearMatrix();
 
+    auto lastReading = readings.back()
+
     showReading(readings.back(), 0, 6, TEXT_ALIGNMENT::CENTER, FONT_TYPE::MEDIUM, dataIsOld);
 
     // show arrow in the right part of the screen
