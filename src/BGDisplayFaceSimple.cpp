@@ -13,25 +13,23 @@ void BGDisplayFaceSimple::showReadings(const std::list<GlucoseReading> &readings
     // show arrow in the right part of the screen
     showTrendArrow(readings.back(), 32 - 5, 1);
   
-     //I do declare
-    int startX = 0;
-    int endX = MATRIX_WIDTH - 1;
-    
-    // Calculate elapsed minutes and block count
-int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
-int maxBlocks = 6; // Maximum blocks to display
-int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
+// Declare and calculate
+    int maxBlocks = 5; // Limit to maximum of 5 blocks
+    int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
+    int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
 
-// Calculate total width of blocks and the starting x position
-int totalWidth = (blockCount * 5); // 4 pixels per block + 1 pixel for spacing
-startX = 0; // Align to the left
+    // Calculate block width and spacing to evenly distribute
+    int totalAvailableWidth = MATRIX_WIDTH; // Total width of the display
+    int blockWidth = totalAvailableWidth / blockCount; // Width of each block (including spacing)
+    int blockPixelWidth = blockWidth - 1; // Actual block width (spacing is 1 pixel)
 
-// Draw each block
-for (int i = 0; i < blockCount; ++i) {
-    int blockStartX = startX + (i * 5); // 4 pixels for block + 1 pixel for spacing
-    for (int x = blockStartX; x < blockStartX + 4; ++x) {
-        DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
+    // Draw each block
+    for (int i = 0; i < blockCount; ++i) {
+        int blockStartX = i * blockWidth; // Calculate starting position for each block
+        for (int x = blockStartX; x < blockStartX + blockPixelWidth; ++x) {
+            DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
+        }
     }
-}
+
     DisplayManager.update();
 }
