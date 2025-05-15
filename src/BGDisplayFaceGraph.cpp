@@ -6,7 +6,7 @@
 void BGDisplayFaceGraph::showReadings(const std::list<GlucoseReading> &readings, bool dataIsOld) const {
     showGraph(0, 32, 180, readings);
 
-    auto lastReading = readings.back()
+    auto lastReading = readings.back();
 
     // Declare and calculate
     int maxBlocks = 5; // Limit to maximum of 5 blocks
