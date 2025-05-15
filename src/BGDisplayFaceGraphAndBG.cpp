@@ -21,6 +21,26 @@ void BGDisplayFaceGraphAndBG::showReadings(const std::list<GlucoseReading> &read
     showGraph(0, grqphWidth, minutesToShow, readings);
     showReading(readings.back(), 31, 6, TEXT_ALIGNMENT::RIGHT, FONT_TYPE::MEDIUM, dataIsOld);
     showTrendVerticalLine(31, readings.back().trend);
+
+    // Declare and calculate
+    int maxBlocks = 5; // Limit to maximum of 5 blocks
+    int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
+    int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
+
+    // Calculate block width and spacing to evenly distribute
+    int totalAvailableWidth = MATRIX_WIDTH; // Total width of the display
+    int blockWidth = totalAvailableWidth / blockCount; // Width of each block (including spacing)
+    int blockPixelWidth = blockWidth - 1; // Actual block width (spacing is 1 pixel)
+
+    // Draw each block
+    for (int i = 0; i < blockCount; ++i) {
+        int blockStartX = i * blockWidth; // Calculate starting position for each block
+        for (int x = blockStartX; x < blockStartX + blockPixelWidth; ++x) {
+            DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
+        }
+    }
+
+    DisplayManager.update();
 }
 
 void BGDisplayFaceGraphAndBG::showTrendVerticalLine(int x, BG_TREND trend) const {
