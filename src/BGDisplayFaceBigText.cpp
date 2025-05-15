@@ -11,7 +11,7 @@ void BGDisplayFaceBigText::showReadings(const std::list<GlucoseReading> &reading
     // show arrow in the right part of the screen
     showTrendArrow(readings.back(), 32 - 5, 1);
 
-    auto lastReading = readings.back()
+    auto lastReading = readings.back();
     
    // Timer block logic
     int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
