@@ -110,7 +110,7 @@ void BGDisplayManager_::showData(std::list<GlucoseReading> glucoseReadings) {
     displayedReadings = glucoseReadings;
 }
 
-void BGDisplayManager::drawTimerBlocks(int elapsedMinutes, int maxBlocks, bool dataIsOld) {
+void BGDisplayManager_::drawTimerBlocks(int elapsedMinutes, int maxBlocks, bool dataIsOld) {
     const int blockSpacing = 1; // Space between blocks
     const int totalSpacing = blockSpacing * (maxBlocks - 1);
     const int blockWidth = (MATRIX_WIDTH - totalSpacing) / maxBlocks; // Dynamically calculate block width
