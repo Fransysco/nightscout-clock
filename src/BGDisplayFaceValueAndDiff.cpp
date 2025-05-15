@@ -30,26 +30,27 @@ void BGDisplayFaceValueAndDiff::showReadings(const std::list<GlucoseReading> &re
     DisplayManager.printText(33, 6, diff.c_str(), TEXT_ALIGNMENT::RIGHT, 2);
 
 
-    // Declare and calculate
-    int maxBlocks = 5; // Limit to maximum of 5 blocks
     int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
+    int maxBlocks = 5; // Maximum blocks
+    int blockWidth = 4; // Width of each block in pixels
+    int blockSpacing = 1; // Spacing between blocks in pixels
     int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
 
-    // Calculate block width and spacing to evenly distribute
-    int totalAvailableWidth = MATRIX_WIDTH; // Total width of the display
-    int blockWidth = totalAvailableWidth / blockCount; // Width of each block (including spacing)
-    int blockPixelWidth = blockWidth - 1; // Actual block width (spacing is 1 pixel)
+    // Calculate total width of all blocks and center them
+    int totalWidth = (blockWidth + blockSpacing) * blockCount - blockSpacing;
+    int startX = (MATRIX_WIDTH - totalWidth) / 2; // Center the blocks horizontally
 
     // Draw each block
     for (int i = 0; i < blockCount; ++i) {
-        int blockStartX = i * blockWidth; // Calculate starting position for each block
-        for (int x = blockStartX; x < blockStartX + blockPixelWidth; ++x) {
+        int blockStartX = startX + i * (blockWidth + blockSpacing); // Calculate starting position for each block
+        for (int x = blockStartX; x < blockStartX + blockWidth; ++x) {
             DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
         }
     }
 
     DisplayManager.update();
 }
+
 
 String BGDisplayFaceValueAndDiff::getDiff(const std::list<GlucoseReading> &readings) const {
     if (readings.size() < 2) {
