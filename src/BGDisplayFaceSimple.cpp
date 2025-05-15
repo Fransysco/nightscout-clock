@@ -13,20 +13,22 @@ void BGDisplayFaceSimple::showReadings(const std::list<GlucoseReading> &readings
     // show arrow in the right part of the screen
     showTrendArrow(readings.back(), 32 - 5, 1);
   
-// Declare and calculate
-    int maxBlocks = 5; // Limit to maximum of 5 blocks
+    // Timer block logic
     int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
-    int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
+    const int maxBlocks = 5; // Maximum number of blocks
+    const int blockSpacing = 1; // Space between blocks
 
-    // Calculate block width and spacing to evenly distribute
-    int totalAvailableWidth = MATRIX_WIDTH; // Total width of the display
-    int blockWidth = totalAvailableWidth / blockCount; // Width of each block (including spacing)
-    int blockPixelWidth = blockWidth - 1; // Actual block width (spacing is 1 pixel)
+    // Dynamically calculate the block size based on available space
+    int totalSpacing = blockSpacing * (maxBlocks - 1); // Total space needed for gaps
+    int blockWidth = (MATRIX_WIDTH - totalSpacing) / maxBlocks; // Maximum block width
+
+    int blockCount = elapsedMinutes > maxBlocks ? maxBlocks : elapsedMinutes;
+    int startX = 0; // Always start from the left edge
 
     // Draw each block
     for (int i = 0; i < blockCount; ++i) {
-        int blockStartX = i * blockWidth; // Calculate starting position for each block
-        for (int x = blockStartX; x < blockStartX + blockPixelWidth; ++x) {
+        int blockStartX = startX + i * (blockWidth + blockSpacing); // Calculate the start position of the block
+        for (int x = blockStartX; x < blockStartX + blockWidth; ++x) {
             DisplayManager.drawPixel(x, MATRIX_HEIGHT - 1, dataIsOld ? COLOR_RED : COLOR_GREEN);
         }
     }
