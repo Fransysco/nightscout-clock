@@ -10,7 +10,11 @@ void BGDisplayFaceSimple::showReadings(const std::list<GlucoseReading> &readings
 
     // show arrow in the right part of the screen
     showTrendArrow(readings.back(), 32 - 5, 1);
-
+  
+     //I do declare
+    int startX = 0;
+    int endX = MATRIX_WIDTH - 1;
+    
     // Calculate elapsed minutes and block count
 int elapsedMinutes = (ServerManager.getUtcEpoch() - lastReading.epoch) / 60;
 int maxBlocks = 6; // Maximum blocks to display
